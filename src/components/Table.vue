@@ -7,8 +7,17 @@
 						<span class="title">{{header.title}}: </span>
 						<span class="value" :dir="header.dir">{{item[property]}}</span>
 					</div>
-					<div class="item-actions" v-if="actions">
-						<input :ref="`checkbox-${item.id}`" v-model="selected" type="checkbox" :value="item.id">
+					<div class="actions" v-if="actions">
+						<label class="checkbox-option">
+							<input
+									:ref="`checkbox-${item.id}`"
+									v-model="selected"
+									type="checkbox"
+									:value="item.id"
+									class="checkbox-input"
+							>
+							<span class="checkbox"></span>
+						</label>
 						<Button
 								v-for="(button, index) in actions"
 								:key="index"
@@ -147,6 +156,12 @@
 		justify-content: center;
 		align-items: center;
 	}
+	.item-card .actions{
+		justify-content: flex-end;
+	}
+	.actions > *:not(:last-child){
+		margin-inline-end: 7px;
+	}
 
 	input[type="checkbox"]{
 		cursor: pointer;
@@ -176,14 +191,6 @@
 
 	.item-info{margin-bottom: 5px;}
 	.item-info .title{ font-weight: bold; }
-	.item-info .value{}
-
-	.item-actions{
-		display: flex;
-		flex-direction: row;
-		justify-content: flex-end;
-		align-items: center;
-	}
 
 	/* custom checkbox */
 	.checkbox-option{
