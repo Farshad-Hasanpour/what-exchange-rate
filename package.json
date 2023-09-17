@@ -1,8 +1,12 @@
 {
-  "name": "sabacell-front-test",
+  "name": "what-exchange-rate",
+  "author": "Farshad Hasanpour",
+  "description": "",
+  "license": "MIT",
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "dev": "vue-cli-service serve",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"

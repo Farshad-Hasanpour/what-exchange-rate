@@ -1,8 +1,14 @@
 <template>
-	<div id="snackbar" :class="[message && show ? 'visible' : '', type]">
-		<span class="message">{{message}}</span>
+	<div
+		id="snackbar"
+		:class="[
+			$store.state.snackbar.message && $store.state.snackbar.show ? 'visible' : '',
+			$store.state.snackbar.messageType
+		]"
+	>
+		<span class="message">{{$store.state.snackbar.message}}</span>
 		<Button class="close" type="icon" depressed @click="$store.dispatch('closeMessage')">
-			<Icon name="close" title="بستن پیام"/>
+			<Icon name="close" title="Close"/>
         </Button>
 	</div>
 </template>
@@ -10,17 +16,6 @@
 <script>
 	export default {
 		name: "Snackbar",
-		computed:{
-			show(){
-				return this.$store.state.snackbar.show;
-			},
-			type(){
-				return this.$store.state.snackbar.messageType;
-			},
-			message(){
-				return this.$store.state.snackbar.message;
-			},
-		},
 	}
 </script>
 

@@ -1,21 +1,22 @@
 <template>
-	<div id="user-card">
-		<h2 id="name">{{user.name}}</h2>
-		<p id="phone">{{user.phone}}</p>
+	<div id="selected-card">
+		<h2 id="header">{{title}}</h2>
+		<p id="description">{{description}}</p>
 	</div>
 </template>
 
 <script>
 	export default {
-		name: "UserCard",
+		name: "SelectedCard",
 		props:{
-			user: {required: true, type: Object}
+			title: {required: true, type: String},
+			description: {required: true, type: String}
 		}
 	}
 </script>
 
 <style scoped>
-	#user-card{
+	#selected-card{
 		--items-per-row: 1;
 		--horizontal-margin: 10px;
 
@@ -27,32 +28,32 @@
 
 		display: flex;
 		flex-direction: column;
-		justify-content: start;
+		justify-content: flex-start;
 		align-items: center;
 		padding: 32px 10px;
 		background-color: var(--color-card-back);
 	}
 
-	#name{ margin: 0; }
-	#phone{
+	#title{ margin: 0; }
+	#description{
 		margin: 0;
 		font-size: 14px;
 		color: darkgray;
 	}
 
 	@media only screen and (min-width: 600px) {
-		#user-card{ --items-per-row: 2; }
+		#selected-card{ --items-per-row: 2; }
 	}
 
 	@media only screen and (min-width: 960px) {
-		#user-card{ --items-per-row: 3; }
+		#selected-card{ --items-per-row: 3; }
 	}
 
 	@media only screen and (min-width: 1264px) {
-		#user-card{ --items-per-row: 4; }
+		#selected-card{ --items-per-row: 4; }
 	}
 
 	@media only screen and (min-width: 1904px) {
-		#user-card{ --items-per-row: 5; }
+		#selected-card{ --items-per-row: 5; }
 	}
 </style>

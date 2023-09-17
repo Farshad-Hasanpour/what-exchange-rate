@@ -26,18 +26,12 @@ const themes = {
 	}
 };
 
-const api = 'https://jsonplaceholder.typicode.com/';
-const users = api + 'users';
-
 let store = new Vuex.Store({
 	strict: true,
 	state: {
 		width: window.innerWidth,
-		rtl: true,
+		rtl: false,
 		themeName: 'dark',
-		server:{
-			users
-		},
 		snackbar:{
 			show: false,
 			message: null,

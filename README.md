@@ -1,4 +1,8 @@
-# sabacell-front-test
+# What Exchange Rate
+
+
+## Node Version
+this app can be built by node 16
 
 ## Project setup
 ```

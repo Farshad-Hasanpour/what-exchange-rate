@@ -3,152 +3,173 @@
 		<div id="app">
 			<Snackbar/>
 			<header>
-				<Button class="setting-button" type="fab" dark height="36px" :color="themeColors.primary" title="تغییر قالب" @click="$store.dispatch('switchTheme')">
+				<Button
+					class="setting-button"
+					type="fab"
+					dark
+					height="36px"
+					:color="themeColors.primary"
+					title="Switch Theme"
+					@click="$store.dispatch('switchTheme')"
+				>
 					<Icon name="brightness-4"/>
 				</Button>
-				<Button class="setting-button" type="fab" dark height="36px" :color="themeColors.primary" title="تغییر جهت" @click="$store.dispatch('switchDirection')">
-					<Icon name="translate"/>
-				</Button>
+<!--				<Button-->
+<!--					class="setting-button"-->
+<!--					type="fab"-->
+<!--					dark-->
+<!--					height="36px"-->
+<!--					:color="themeColors.primary"-->
+<!--					title="Change Direction"-->
+<!--					@click="$store.dispatch('switchDirection')"-->
+<!--				>-->
+<!--					<Icon name="translate"/>-->
+<!--				</Button>-->
 			</header>
 			<main>
 				<section>
 					<div class="section-header">
-						<h2>کاربران انتخاب شده</h2>
+						<h2>Featured</h2>
 					</div>
-					<transition-group tag="div" id="selected-users" name="card-fade">
-						<UserCard v-for="user in selectedUsers" :key="user.id" :user="user"/>
+					<transition-group tag="div" id="selected-rows" name="card-fade">
+						<SelectedCard
+							v-for="rate in selectedRates"
+							:key="rate.id"
+							:title="rate.name"
+							:description="rate.value"
+						/>
 					</transition-group>
+					<p v-show="!selectedRates.length" class="no-symbol-selected">
+						No Symbol Selected
+					</p>
 				</section>
 				<section>
 					<div class="section-header">
-						<h2>کاربران</h2>
-						<Button
-								v-show="selected.length"
-								type="outlined"
-								width="200px"
-								:color="themeColors.error"
-								:loading="multiDeleting"
-								@click="deleteUsers(selected, true)"
-						>
-							<Icon name="trash-can-outline"/>
-							<span>حذف دسته جمعی</span>
-						</Button>
+						<h2>Exchange Rates - {{base}}</h2>
 					</div>
-
 					<Table
 							v-model="selected"
-							:items="usersWithRow"
+							:items="ratesToShow"
 							:selectable="true"
 							:max-select-count="5"
 							:headers="headers"
-							:loading="fetching"
+							:loading="fetchingRates || fetchingSymbols"
 							:actions="actions"
-							@delete="deleteUsers($event)"
+							@searchOnGoogle="searchOnGoogle($event)"
+							@setAsBase="base=$event"
 					/>
 				</section>
 			</main>
 		</div>
 	</div>
-
 </template>
 
 <script>
-	const UserCard = () => import('@/components/UserCard');
+	const SelectedCard = () => import('@/components/SelectedCard');
 	const Table = () => import('@/components/Table');
 	const Snackbar = () => import('@/components/Snackbar');
+
 	export default {
 		name: 'App',
-		components: {UserCard, Table, Snackbar},
-		created(){
-			this.fetchUsers();
-		},
-		computed:{
-			themeColors(){ return this.$store.getters.themeColors},
-			selectedUsers(){
-				return this.users.filter(user => this.selected.includes(user.id));
-			},
-			usersWithRow(){
-				return this.users.map((user, index) => {
-					return {
-						row: index+1,
-						...user
-					}
-				});
+		components: {SelectedCard, Table, Snackbar},
+		watch: {
+			base: {
+				immediate: true,
+				handler(){
+					this.fetchSymbols();
+					this.fetchRates();
+				}
 			}
 		},
-		data: function(){
-			return {
-				server:{
-					users: this.$store.state.server.users
-				},
-				selected: [],
-				users:[],
-				headers: {
-					row:{title: 'ردیف', dir: 'ltr'},
-					name:{title: 'نام', dir: 'ltl'},
-					username:{title: 'نام کاربری', dir: 'ltr'},
-					phone:{title: 'تلفن', dir: 'ltr'},
-					address:{title: 'آدرس', dir: 'ltr'},
-				},
-				actions:{
-					delete:{
-						icon: 'trash-can-outline',
-						title: 'حذف کاربر',
-						event: 'delete',
-						color: this.$store.getters.themeColors.error,
-						loadingProperty: 'deleting',
+		computed:{
+			themeColors(){
+				return this.$store.getters.themeColors
+			},
+			selectedRates(){
+				return this.ratesToShow.filter(rate => this.selected.includes(rate.id));
+			},
+			ratesToShow(){
+				return this.rates.map((rate, index) => ({
+					row: index + 1,
+					name: this.symbols[rate.id]?.description || 'Loading...',
+					...rate
+				}));
+			},
+			headers(){
+				return {
+					row:{title: 'Row', dir: 'ltr'},
+					name:{title: 'Name', dir: 'ltl'},
+					id:{title: 'Symbol', dir: 'ltr'},
+					value:{title: `Exchange Rate By ${this.base}`, dir: 'ltr'},
+				}
+			},
+			actions(){
+				return {
+					searchOnGoogle:{
+						icon: 'google',
+							title: 'Search on Google',
+							event: 'searchOnGoogle',
+							color: this.$store.getters.themeColors.primary,
+							loadingProperty: null,
+					},
+					setAsBase: {
+						icon: 'currency-usd',
+							title: 'Set as base currency',
+							event: 'setAsBase',
+							color: this.$store.getters.themeColors.success,
+							loadingProperty: null,
 					}
-				},
-				fetching: false,
-				multiDeleting: false,
+				}
+			}
+		},
+		data(){
+			return {
+				selected: [],
+				symbols: {},
+				rates: [],
+				base: 'USD',
+				fetchingSymbols: false,
+				fetchingRates: false,
 			}
 		},
 		methods:{
-			fetchUsers(){
-				this.fetching = true;
-				this.$http.get(this.server.users).then(response => {
-					this.users = response.data.map(user => {
-						return {
-							...user,
-							address: `${user.address.suite}, ${user.address.street}, ${user.address.city}`,
-							deleting: false,
-						}
-					});
-				}).catch(error => {
-					let message = 'خطا در دریافت کاربران از سرور';
-					if(error.response && error.response.statusText) message = error.response.statusText;
+			fetchSymbols(){
+				this.fetchingSymbols = true;
+				this.$http.get('/symbols').then(res => {
+					this.symbols = res.data.symbols;
+				}).catch(() => {
+					const message = "We're sorry. There was an error in fetching symbols";
 					this.$store.dispatch('showMessage', {messageType: 'error', message});
 				}).then(() => {
-					this.fetching = false;
+					this.fetchingSymbols = false;
 				});
 			},
-			deleteUsers(ids, multiDeleteButton=false){
-				// Change to array
-				if(!Array.isArray(ids)) ids = [ids];
-
-				// set loading
-				if(multiDeleteButton){
-					this.multiDeleting = true;
-				}else{
-					this.users.find(user => user.id === ids[0]).deleting = true;
-				}
-
-				// Simulate api loading
-				setTimeout(function(){
-					// delete users
-					this.users = this.users.filter(user => !ids.includes(user.id));
-					// remove deleted users from selected list
-					this.selected = this.selected.filter(id => !ids.includes(id));
-
-					if(multiDeleteButton) this.multiDeleting = false;
-				}.bind(this), 1000);
+			fetchRates(){
+				this.fetchingRates = true;
+				this.$http.get('/latest', {
+					params: {
+						base: this.base,
+					}
+				}).then(res => {
+					this.rates = Object.entries(res.data.rates).map(([code, value]) => ({
+						id: code,
+						value,
+					}));
+				}).catch(() => {
+					const message = "We're sorry. There was an error in fetching exchange rates";
+					this.$store.dispatch('showMessage', {messageType: 'error', message});
+				}).then(() => {
+					this.fetchingRates = false;
+				});
+			},
+			searchOnGoogle(target){
+				window.open(`https://google.com/search?q=${this.base}+to+${target}`, '_blank');
 			}
 		}
 	}
 </script>
 
 <style>
-
 	@import '../node_modules/@mdi/font/css/materialdesignicons.min.css';
 
 	:root{
@@ -258,17 +279,17 @@
 	.section-header{
 		display: flex;
 		flex-direction: row;
-		justify-content: start;
+		justify-content: flex-start;
 		align-items: center;
 	}
 	.section-header > *:not(:last-child){
 		margin-inline-end: 20px;
 	}
 
-	#selected-users{
+	#selected-rows{
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: start;
+		justify-content: flex-start;
 		align-items: stretch;
 		margin-right: -10px;
 		margin-left: -10px;
@@ -288,4 +309,9 @@
 		transition: transform .3s;
 	}
 
+	.no-symbol-selected{
+		text-align: center;
+		margin-bottom: 0;
+		color: var(--color-error);
+	}
 </style>

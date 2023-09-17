@@ -38,9 +38,9 @@
 		<table v-else>
 			<thead>
 				<tr>
-					<th v-if="selectable">انتخاب</th>
+					<th v-if="selectable">Select</th>
 					<th v-for="(header, property) in headers" :key="property">{{header.title}}</th>
-					<th v-if="actions">عملیات‌ها</th>
+					<th v-if="actions">Actions</th>
 				</tr>
 			</thead>
 			<tr v-show="loading" class="loading">
@@ -48,7 +48,7 @@
 					<Icon name="loading" size="36px" :color="themeColors.primary" rotate/>
 				</td>
 			</tr>
-			<transition-group tag="tbody" name="table-fade">
+			<transition-group v-show="!loading" tag="tbody" name="table-fade">
 				<tr v-for="item in items" :key="item.id">
 					<td v-if="selectable">
 						<label class="checkbox-option">
@@ -98,11 +98,6 @@
 			value:{type: Array, default: () => []},
 			actions:{type: Object, default: () => undefined}
 		},
-		data: function(){
-			return {
-
-			}
-		},
 		computed:{
 			selected:{
 				get(){
@@ -130,9 +125,6 @@
 				return this.$store.getters.smAndDown;
 			}
 		},
-		methods:{
-
-		}
 	}
 </script>
 
@@ -175,14 +167,14 @@
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
-		justify-content: start;
+		justify-content: flex-start;
 		align-items: center;
 	}
 
 	.item-card{
 		display: flex;
 		flex-direction: column;
-		justify-content: start;
+		justify-content: flex-start;
 		align-items: stretch;
 		width: 100%;
 		border-bottom: 1px solid var(--color-line);
