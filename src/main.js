@@ -12,7 +12,7 @@ Vue.config.productionTip = false;
 
 axios.defaults.baseURL = 'https://exchange-rate9.p.rapidapi.com';
 //TODO: change authorization method
-axios.defaults.headers['X-RapidAPI-Key'] = 'd4a8ab7e25msh334a0266ac2fc60p1d0026jsnd9439bae5d13';
+axios.defaults.headers['X-RapidAPI-Key'] = '';
 axios.defaults.headers['X-RapidAPI-Host'] = 'exchange-rate9.p.rapidapi.com';
 
 Vue.prototype.$http = axios;

@@ -3,7 +3,9 @@
 		<div id="app">
 			<Snackbar/>
 			<header>
-				<h1 class="m-0">What Exchange Rate</h1>
+				<a href="/">
+					<h1 class="m-0" style="color: var(--color-primary)">What Exchange Rate</h1>
+				</a>
 				<div class="actions">
 					<Button
 						class="action-button"
