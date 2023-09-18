@@ -4,7 +4,7 @@
 			<Snackbar/>
 			<header>
 				<a href="/">
-					<h1 class="m-0" style="color: var(--color-primary)">What Exchange Rate</h1>
+					<h1 class="m-0" style="color: var(--color-primary); line-height: 1;">What Exchange Rate</h1>
 				</a>
 				<div class="actions">
 					<Button
@@ -60,7 +60,21 @@
 				</section>
 				<section>
 					<div class="section-header">
-						<h2 style="font-weight: normal">Exchange Rates Based on <span style="font-weight: bold;">{{base}}</span></h2>
+						<h2 style="font-weight: normal; font-size: 1.5em; line-height: 1;">
+							Exchange Rates Based on
+							<span class="base-select-container">
+								<select v-model="base" class="base-select-input">
+									<option
+										v-for="({description}, symbol) in symbols"
+										:key="symbol"
+										:value="symbol"
+									>
+										{{description}}
+									</option>
+								</select>
+							</span>
+
+						</h2>
 					</div>
 					<Table
 							v-model="selected"
@@ -334,5 +348,39 @@
 
 	.m-0{
 		margin: 0;
+	}
+
+	.base-select-input{
+		appearance: none;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		outline: none;
+		border: none;
+		background-color: var(--color-card-back);
+		color: white;
+		height: 36px;
+		border-radius: 4px;
+		font-size: 16px;
+		padding-top: 0;
+		padding-bottom: 0;
+		padding-left: 12px;
+		padding-right: 36px;
+		width: 350px;
+	}
+	/* Style for the arrow icon */
+	.base-select-container{
+		display: inline-block;
+		position: relative;
+	}
+	.base-select-container::after {
+		content: '\25BC';
+		position: absolute;
+		top: 50%;
+		right: calc((36px - 14px) / 2);
+		transform: translateY(-50%);
+		font-size: 14px;
+		width: 14px;
+		height: 14px;
+		pointer-events: none; /* Prevents clicking on the arrow */
 	}
 </style>
