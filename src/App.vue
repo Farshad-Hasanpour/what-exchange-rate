@@ -74,7 +74,7 @@
 						/>
 					</transition-group>
 				</section>
-				<section>
+				<section style="flex-grow: 1">
 					<div class="section-header">
 						<h2 style="font-weight: normal; font-size: 1.5em; line-height: 1;">
 							Exchange Rates Based on
@@ -322,6 +322,8 @@
 		margin-top: 70px;
 		height: calc(100% - 70px);
 		width: 100%;
+		display: flex;
+		flex-direction: column;
 	}
 
 	/*** Chrome Scroll ***/
@@ -427,6 +429,7 @@
 		align-items: center;
 		height: 70px;
 		padding: 0 25px;
+		margin-top: auto;
 	}
 
 </style>

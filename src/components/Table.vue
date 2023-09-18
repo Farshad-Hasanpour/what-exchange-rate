@@ -198,13 +198,14 @@
 		height: 22px;
 		border: 2px solid var(--color-line);
 		background-color: white;
+		border-radius: 2px;
 	}
 	.checkbox:after {
 		content: "";
 		position: absolute;
 		display: none;
-		left: 5px;
-		top: 2px;
+		left: 6px;
+		top: 3px;
 		width: 5px;
 		height: 8px;
 		border: solid white;
