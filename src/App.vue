@@ -164,10 +164,15 @@
 						base: this.base,
 					}
 				}).then(res => {
-					this.rates = Object.entries(res.data.rates).map(([code, value]) => ({
-						id: code,
-						value,
-					}));
+					this.rates = Object.entries(res.data.rates).map(([code, value]) => {
+						let formatted = value.toLocaleString('en', {style: "currency", currency: code, maximumSignificantDigits: 7});
+						if(formatted.startsWith(code)) formatted = formatted.replace(code, '').trim();
+
+						return {
+							id: code,
+							value: formatted,
+						}
+					});
 				}).catch(() => {
 					const message = "We're sorry. There was an error in fetching exchange rates";
 					this.$store.dispatch('showMessage', {messageType: 'error', message});
@@ -183,6 +188,7 @@
 </script>
 
 <style>
+	@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 	@import '../node_modules/@mdi/font/css/materialdesignicons.min.css';
 
 	:root{
@@ -218,7 +224,7 @@
 	}
 
 	#app-wrapper{
-		font-family: Shabnam, Tahoma, Arial, sans-serif;
+		font-family: Nunito, sans-serif;
 		position: fixed;
 		height: 100%;
 		width: 100%;
@@ -233,15 +239,6 @@
 		text-align: right;
 	}
 	#app { height: 100%;}
-
-	@font-face{
-		font-family: shabnam;
-		src: url('./assets/fonts/shabnam/Shabnam-FD.eot');
-		src: url('./assets/fonts/shabnam/Shabnam-FD.eot?#iefix') format('embedded-opentype'),
-		url('./assets/fonts/shabnam/Shabnam-FD.woff') format('woff'),
-		url('./assets/fonts/shabnam/Shabnam-FD.ttf') format('truetype');
-		font-weight: normal;
-	}
 
 	/* style reset */
 	*{ box-sizing: border-box;}
