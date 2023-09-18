@@ -107,7 +107,7 @@
 					if(this.maxSelectCount && val.length > this.maxSelectCount){
 						const lastId = val[val.length - 1];
 						this.$refs['checkbox-'+lastId][0].checked = false;
-						const message = `حداکثر می توانید ${this.maxSelectCount} ردیف انتخاب کنید.`;
+						const message = `You can not select more than ${this.maxSelectCount} rows.`;
 						this.$store.dispatch('showMessage', {messageType: 'error', message});
 						return;
 					}

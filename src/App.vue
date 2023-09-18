@@ -3,34 +3,50 @@
 		<div id="app">
 			<Snackbar/>
 			<header>
-				<Button
-					class="setting-button"
-					type="fab"
-					dark
-					height="36px"
-					:color="themeColors.primary"
-					title="Switch Theme"
-					@click="$store.dispatch('switchTheme')"
-				>
-					<Icon name="brightness-4"/>
-				</Button>
-<!--				<Button-->
-<!--					class="setting-button"-->
-<!--					type="fab"-->
-<!--					dark-->
-<!--					height="36px"-->
-<!--					:color="themeColors.primary"-->
-<!--					title="Change Direction"-->
-<!--					@click="$store.dispatch('switchDirection')"-->
-<!--				>-->
-<!--					<Icon name="translate"/>-->
-<!--				</Button>-->
+				<h1 class="m-0">What Exchange Rate</h1>
+				<div class="actions">
+					<Button
+						class="action-button"
+						type="fab"
+						dark
+						height="36px"
+						:color="themeColors.primary"
+						title="Switch Theme"
+						@click="$store.dispatch('switchTheme')"
+					>
+						<Icon name="brightness-4"/>
+					</Button>
+					<a
+						href="https://github.com/Farshad-Hasanpour/what-exchange-rate"
+						target="_blank"
+						rel="noopener"
+						class="action-button"
+					>
+						<Button
+							type="fab"
+							dark
+							height="36px"
+							:color="themeColors.primary"
+							title="Source code"
+						>
+							<Icon name="github"/>
+						</Button>
+					</a>
+					<!--				<Button-->
+					<!--					class="action-button"-->
+					<!--					type="fab"-->
+					<!--					dark-->
+					<!--					height="36px"-->
+					<!--					:color="themeColors.primary"-->
+					<!--					title="Change Direction"-->
+					<!--					@click="$store.dispatch('switchDirection')"-->
+					<!--				>-->
+					<!--					<Icon name="translate"/>-->
+					<!--				</Button>-->
+				</div>
 			</header>
 			<main>
 				<section>
-					<div class="section-header">
-						<h2>Featured</h2>
-					</div>
 					<transition-group tag="div" id="selected-rows" name="card-fade">
 						<SelectedCard
 							v-for="rate in selectedRates"
@@ -39,19 +55,16 @@
 							:description="rate.value"
 						/>
 					</transition-group>
-					<p v-show="!selectedRates.length" class="no-symbol-selected">
-						No Symbol Selected
-					</p>
 				</section>
 				<section>
 					<div class="section-header">
-						<h2>Exchange Rates - {{base}}</h2>
+						<h2 style="font-weight: normal">Exchange Rates Based on <span style="font-weight: bold;">{{base}}</span></h2>
 					</div>
 					<Table
 							v-model="selected"
 							:items="ratesToShow"
 							:selectable="true"
-							:max-select-count="5"
+							:max-select-count="4"
 							:headers="headers"
 							:loading="fetchingRates || fetchingSymbols"
 							:actions="actions"
@@ -100,7 +113,7 @@
 					row:{title: 'Row', dir: 'ltr'},
 					name:{title: 'Name', dir: 'ltl'},
 					id:{title: 'Symbol', dir: 'ltr'},
-					value:{title: `Exchange Rate By ${this.base}`, dir: 'ltr'},
+					value:{title: `Exchange Rate - 1 ${this.base}`, dir: 'ltr'},
 				}
 			},
 			actions(){
@@ -116,7 +129,7 @@
 						icon: 'currency-usd',
 							title: 'Set as base currency',
 							event: 'setAsBase',
-							color: this.$store.getters.themeColors.success,
+							color: this.$store.getters.themeColors.primary,
 							loadingProperty: null,
 					}
 				}
@@ -271,8 +284,13 @@
 	}
 	/*** Chrome Scroll End ***/
 
-
-	header > .setting-button:not(:first-child){
+	header{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		height: 70px;
+	}
+	header > .actions > .action-button:not(:first-child){
 		margin-inline-start: 15px;
 	}
 
@@ -313,5 +331,9 @@
 		text-align: center;
 		margin-bottom: 0;
 		color: var(--color-error);
+	}
+
+	.m-0{
+		margin: 0;
 	}
 </style>

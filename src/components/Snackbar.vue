@@ -30,8 +30,8 @@
 		max-width: 280px;
 		overflow: hidden;
 		color: white;
-		padding: 8px 10px;
-		font-size: 15px;
+		padding: 16px 24px;
+		font-size: 16px;
 		z-index: 1000;
 		border: 4px solid white;
 		border-radius: 12px;
