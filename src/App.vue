@@ -19,6 +19,22 @@
 						<Icon name="brightness-4"/>
 					</Button>
 					<a
+						href="https://rapidapi.com/Serply/api/exchange-rate9/"
+						target="_blank"
+						rel="noopener"
+						class="action-button"
+					>
+						<Button
+							type="fab"
+							dark
+							height="36px"
+							:color="themeColors.primary"
+							title="API"
+						>
+							<Icon name="api"/>
+						</Button>
+					</a>
+					<a
 						href="https://github.com/Farshad-Hasanpour/what-exchange-rate"
 						target="_blank"
 						rel="noopener"
@@ -88,6 +104,13 @@
 							@setAsBase="base=$event"
 					/>
 				</section>
+				<footer>
+					<p style="display: flex; align-items: center;">
+						<span>Made with</span>
+						<Icon name="heart" style="color: red; margin: 0 4px; font-size: 18px;"/>
+						<span>by <a href="https://www.linkedin.com/in/farshad-hasanpour/" target="_blank" rel="noopener">Farshad Hasanpour</a></span>
+					</p>
+				</footer>
 			</main>
 		</div>
 	</div>
@@ -244,8 +267,6 @@
 		position: fixed;
 		height: 100%;
 		width: 100%;
-		scroll-behavior: smooth;
-		overflow-y: auto;
 		color: var(--color-text);
 		background-color: var(--color-secondary);
 	}
@@ -264,17 +285,43 @@
 		padding: 0;
 		list-style: none;
 	}
-	a{ text-decoration: none; }
-	main{ padding: 20px 20px; }
+	a,
+	a:visited,
+	a:active,
+	a:hover,
+	a:focus{
+		text-decoration: none;
+		color: var(--color-primary);
+	}
 	section{ margin-bottom: 16px; }
 	header{
-		height: 48px;
 		width: 100%;
-		display: flex;
-		flex-direction: row;
-		justify-content: flex-end;
-		align-items: center;
 		padding: 0 25px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		height: 70px;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		background-color: var(--color-secondary);
+		box-shadow: var(--color-line) 0px 2px 8px 0px;
+		z-index: 100;
+	}
+	header > .actions > .action-button:not(:first-child){
+		margin-inline-start: 15px;
+	}
+	main{
+		padding-top: 20px;
+		padding-left: 25px;
+		padding-right: 25px;
+		padding-bottom: 0;
+		scroll-behavior: smooth;
+		overflow-y: auto;
+		margin-top: 70px;
+		height: calc(100% - 70px);
+		width: 100%;
 	}
 
 	/*** Chrome Scroll ***/
@@ -296,16 +343,6 @@
 		background-color: #666;
 	}
 	/*** Chrome Scroll End ***/
-
-	header{
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		height: 70px;
-	}
-	header > .actions > .action-button:not(:first-child){
-		margin-inline-start: 15px;
-	}
 
 	.section-header{
 		display: flex;
@@ -383,4 +420,13 @@
 		height: 14px;
 		pointer-events: none; /* Prevents clicking on the arrow */
 	}
+
+	footer{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		height: 70px;
+		padding: 0 25px;
+	}
+
 </style>
