@@ -8,6 +8,7 @@
 				</a>
 					<Button
 						v-bind="commonHeaderActionProps"
+						class="mx-1"
 						title="Switch Theme"
 						@click="$store.dispatch('switchTheme')"
 					>
@@ -86,7 +87,7 @@
 					<Icon name="heart" color="red" size="18px" class="mx-1 my-0"/>
 					<span>by <a href="https://www.linkedin.com/in/farshad-hasanpour/" target="_blank" rel="noopener">Farshad Hasanpour</a></span>
 				</p>
-				<p>Foreign exchange rates published by the European Central Bank</p>
+				<p>Foreign exchange rates published by the European Central Bank - might be outdated</p>
 				<p><b>DISCLAIMER:</b> Do not use this website for financial decision making.</p>
 			</footer>
 		</div>
@@ -135,8 +136,8 @@
 			headers(){
 				return {
 					row:{title: 'Row', dir: 'ltr'},
-					name:{title: 'Name', dir: 'ltl'},
-					id:{title: 'Symbol', dir: 'ltr'},
+					name:{title: 'Name', dir: 'ltl', searchable: true},
+					id:{title: 'Symbol', dir: 'ltr', searchable: true},
 					value:{title: `Exchange Rate - 1 ${this.base}`, dir: 'ltr'},
 				}
 			},
@@ -162,8 +163,18 @@
 		data(){
 			return {
 				selected: [],
-				symbols: {},
-				rates: [],
+				symbols: {
+					UAE: {description: 'United', id: 'UAE'},
+					USD: {description: 'united states', id: 'USD'},
+					EU: {description: 'europe', id: 'EU'},
+					IRR: { description: 'iranian rials', id: 'IRR'}
+				},
+				rates: [
+					{id: 'UAE', value: '10'},
+					{id: 'EU', value: '2'},
+					{id: 'IRR', value: '3'},
+					{id: 'USD', value: '1'}
+				],
 				base: 'USD',
 				fetchingSymbols: false,
 				fetchingRates: false,

@@ -31,7 +31,7 @@ let store = new Vuex.Store({
 	state: {
 		width: window.innerWidth,
 		rtl: false,
-		themeName: 'dark',
+		themeName: window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light',
 		snackbar:{
 			show: false,
 			message: null,

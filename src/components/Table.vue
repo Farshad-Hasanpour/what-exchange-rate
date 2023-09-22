@@ -42,27 +42,37 @@
 					<th v-for="(header, property) in headers" :key="property">{{header.title}}</th>
 					<th v-if="actions">Actions</th>
 				</tr>
+				<tr v-if="hasSearchRow" class="search-row">
+					<th v-if="selectable"></th>
+					<th v-for="(header, property) in headers" :key="property" class="query-container">
+						<input
+							v-if="header.searchable"
+							:value="query[property]"
+							class="query-input"
+							:placeholder="`Search ${header.title}`"
+							@input="$set(query, property, $event.target.value)"
+						>
+					</th>
+				</tr>
 			</thead>
-			<tr v-show="loading" class="loading">
-				<td :colspan="numberOfColumns">
-					<Icon name="loading" size="36px" :color="themeColors.primary" rotate/>
-				</td>
-			</tr>
-			<tr v-show="!loading && !items.length" class="error">
-				<td :colspan="numberOfColumns">
-					No Data
-				</td>
-			</tr>
-			<transition-group v-show="!loading" tag="tbody" name="table-fade">
-				<tr v-for="item in items" :key="item.id">
+			<transition-group tag="tbody" name="table-fade">
+				<tr v-if="loading" key="_loading-row" class="loading">
+					<td :colspan="numberOfColumns">
+						<Icon name="loading" size="36px" :color="themeColors.primary" rotate/>
+					</td>
+				</tr>
+				<tr v-if="!queriedItems.length" key="_no-data-row" class="no-date">
+					<td :colspan="numberOfColumns">No Data</td>
+				</tr>
+				<tr v-for="item in queriedItems" :key="item.id">
 					<td v-if="selectable">
 						<label class="checkbox-option">
 							<input
-									:ref="`checkbox-${item.id}`"
-									v-model="selected"
-									type="checkbox"
-									:value="item.id"
-									class="checkbox-input"
+								:ref="`checkbox-${item.id}`"
+								v-model="selected"
+								type="checkbox"
+								:value="item.id"
+								class="checkbox-input"
 							>
 							<span class="checkbox"></span>
 						</label>
@@ -71,15 +81,15 @@
 					<td v-if="actions">
 						<div class="actions">
 							<Button
-									v-for="(button, index) in actions"
-									:key="index"
-									type="icon"
-									depressed
-									height="32px"
-									:color="button.color"
-									:title="button.title"
-									:loading="button.loadingProperty ? item[button.loadingProperty] : undefined"
-									@click="$emit(button.event, item.id)"
+								v-for="(button, index) in actions"
+								:key="index"
+								type="icon"
+								depressed
+								height="32px"
+								:color="button.color"
+								:title="button.title"
+								:loading="button.loadingProperty ? item[button.loadingProperty] : undefined"
+								@click="$emit(button.event, item.id)"
 							>
 								<Icon :name="button.icon"/>
 							</Button>
@@ -103,6 +113,23 @@
 			value:{type: Array, default: () => []},
 			actions:{type: Object, default: () => undefined}
 		},
+		watch: {
+			headers: {
+				immediate: true,
+				deep: true,
+				handler(newVal){
+					const newFields = {};
+					Object.entries(newVal).forEach(([name, value]) => {
+						if(value.searchable) newFields[name] = ''
+					})
+					Object.assign(
+						{},
+						this.query,
+						newFields
+					)
+				}
+			},
+		},
 		computed:{
 			selected:{
 				get(){
@@ -119,6 +146,9 @@
 					this.$emit('input', val);
 				}
 			},
+			hasSearchRow(){
+				return Object.entries(this.headers).map(item => item[1].searchable).includes(true);
+			},
 			themeColors(){ return this.$store.getters.themeColors},
 			numberOfColumns(){
 				let result = Object.keys(this.headers).length;
@@ -128,13 +158,40 @@
 			},
 			smAndDown(){
 				return this.$store.getters.smAndDown;
+			},
+			queriedItems(){
+				if(this.loading) return [];
+				const query = Object.entries(this.query);
+				let noFilter = true;
+				for(let i = 0; i < query.length; i++){
+					if(query[i][1]){
+						noFilter = false;
+						break;
+					}
+				}
+				if(noFilter) return this.items;
+
+				let property = null;
+				let term = null;
+				return this.items.filter(item => {
+					for(let i = 0; i < query.length; i++){
+						property = query[i][0];
+						term = query[i][1];
+						if(term && item[property].includes(term)) return true;
+					}
+					return false;
+				})
 			}
 		},
+		data(){
+			return {
+				query: {}
+			}
+		}
 	}
 </script>
 
 <style scoped>
-
 	table{
 		border-collapse: collapse;
 		width: 100%;
@@ -144,7 +201,7 @@
 		text-align: center;
 		padding: 10px 10px;
 	}
-	tr:not(.loading):not(.error){
+	tr:not(.loading):not(.no-data){
 		border-bottom: 1px solid var(--color-line);
 	}
 	.actions{
@@ -164,11 +221,8 @@
 		cursor: pointer;
 	}
 
-	tr.loading td{
-		padding: 16px 0;
-	}
-
-	tr.error td{
+	tr.loading td,
+	tr.no-date td{
 		padding: 16px 0;
 	}
 
@@ -193,36 +247,19 @@
 	.item-info{margin-bottom: 5px;}
 	.item-info .title{ font-weight: bold; }
 
-	/* custom checkbox */
-	.checkbox-option{
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		cursor: pointer;
+	.query-input{
+		color: var(--color-text);
+		height: 42px;
+		margin: 4px;
+		width: 100%;
+		border-radius: 4px;
+		outline: none;
+		background-color: var(--color-card-back);
+		border: none;
+		font-family: Nunito, sans-serif;
+		padding-left: 12px;
+		padding-right: 12px;
 	}
-	.checkbox-input{display: none;}
-	.checkbox{
-		position: relative;
-		width: 22px;
-		height: 22px;
-		border: 2px solid var(--color-line);
-		background-color: white;
-		border-radius: 2px;
-	}
-	.checkbox:after {
-		content: "";
-		position: absolute;
-		display: none;
-		left: 6px;
-		top: 3px;
-		width: 5px;
-		height: 8px;
-		border: solid white;
-		border-width: 0 2px 2px 0;
-		transform: rotate(45deg);
-	}
-	input.checkbox-input:checked ~ .checkbox:after {display: block;}
-	input.checkbox-input:checked ~ .checkbox{ background-color: var(--color-primary); }
 
 	/* animation */
 	.table-fade-enter-active, .table-fade-leave-active {
@@ -234,5 +271,4 @@
 	.table-fade-move{
 		transition: transform .3s;
 	}
-
 </style>

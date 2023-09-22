@@ -84,7 +84,7 @@ main{
 footer{
     display: flex;
     flex-direction: column;
-    padding: 12px 20px;
+    padding: 12px 25px;
     margin-top: auto;
 }
 
@@ -118,6 +118,37 @@ footer{
     height: 14px;
     pointer-events: none; /* Prevents clicking on the arrow */
 }
+
+/* custom checkbox */
+.checkbox-option{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.checkbox-input{display: none;}
+.checkbox{
+    position: relative;
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--color-line);
+    background-color: white;
+    border-radius: 2px;
+}
+.checkbox:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 6px;
+    top: 3px;
+    width: 5px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+input.checkbox-input:checked ~ .checkbox:after {display: block;}
+input.checkbox-input:checked ~ .checkbox{ background-color: var(--color-primary); }
 
 /*** General Classes ***/
 .block{
