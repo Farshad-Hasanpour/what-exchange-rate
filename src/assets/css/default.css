@@ -1,0 +1,159 @@
+/*** Chrome Scroll ***/
+::-webkit-scrollbar {
+    width: 12px;
+    background: var(--color-secondary);
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 8px rgba(0,0,0,0.5);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background-color: #666;
+}
+
+/*** Animations ***/
+.card-fade-enter-active {
+    transition: opacity .3s;
+}
+.card-fade-leave-active{
+    opacity: 0;
+    position:absolute;
+}
+.card-fade-enter, .cardfade-leave-to {
+    opacity: 0;
+}
+.card-fade-move{
+    transition: transform .3s;
+}
+
+/*** App wrappers ***/
+#app-wrapper{
+    font-family: Nunito, sans-serif;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    color: var(--color-text);
+    background-color: var(--color-secondary);
+}
+
+#app-wrapper[rtl] #app{
+    direction: rtl;
+    text-align: right;
+}
+#app {
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+header{
+    width: 100%;
+    padding: 0 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--color-secondary);
+    box-shadow: var(--color-line) 0px 2px 8px 0px;
+    z-index: 100;
+}
+
+main{
+    padding-top: 20px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-bottom: 0;
+    scroll-behavior: smooth;
+    overflow-y: auto;
+    margin-top: 70px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+footer{
+    display: flex;
+    flex-direction: column;
+    padding: 12px 20px;
+    margin-top: auto;
+}
+
+/*** Inputs ***/
+.base-select-input{
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+    border: none;
+    background-color: var(--color-card-back);
+    color: white;
+    height: 36px;
+    border-radius: 4px;
+    font-size: 16px;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 12px;
+    padding-right: 36px;
+    width: 350px;
+}
+/* Style for the arrow icon */
+.base-select-container::after {
+    content: '\25BC';
+    position: absolute;
+    top: 50%;
+    right: calc((36px - 14px) / 2);
+    transform: translateY(-50%);
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+    pointer-events: none; /* Prevents clicking on the arrow */
+}
+
+/*** General Classes ***/
+.block{
+    display: block;
+}
+.flex{
+    display: flex;
+}
+.aic{
+    align-items: center;
+}
+.text-center{
+    text-align: center;
+}
+.flex-grow-1{
+    flex-grow: 1;
+}
+.flex-shrink-0{
+    flex-shrink: 0;
+}
+.m-0{
+    margin: 0;
+}
+.mx-1{
+    margin-left: 4px;
+    margin-right: 4px;
+}
+.my-0{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.my-5{
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+.relative{
+    position: relative;
+}
+
