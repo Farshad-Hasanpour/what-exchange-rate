@@ -7,11 +7,7 @@
 					<h1>What Exchange Rate</h1>
 				</a>
 					<Button
-						class="mx-1"
-						type="fab"
-						dark
-						height="36px"
-						:color="themeColors.primary"
+						v-bind="commonHeaderActionProps"
 						title="Switch Theme"
 						@click="$store.dispatch('switchTheme')"
 					>
@@ -23,13 +19,7 @@
 						rel="noopener"
 						class="mx-1"
 					>
-						<Button
-							type="fab"
-							dark
-							height="36px"
-							:color="themeColors.primary"
-							title="API"
-						>
+						<Button v-bind="commonHeaderActionProps" title="API">
 							<Icon name="api"/>
 						</Button>
 					</a>
@@ -39,13 +29,7 @@
 						rel="noopener"
 						class="mx-1"
 					>
-						<Button
-							type="fab"
-							dark
-							height="36px"
-							:color="themeColors.primary"
-							title="Source code"
-						>
+						<Button v-bind="commonHeaderActionProps" title="Source code">
 							<Icon name="github"/>
 						</Button>
 					</a>
@@ -132,6 +116,14 @@
 			},
 			selectedRates(){
 				return this.ratesToShow.filter(rate => this.selected.includes(rate.id));
+			},
+			commonHeaderActionProps(){
+				return{
+					type: 'fab',
+					dark: true,
+					height: "36px",
+					color: this.themeColors.primary,
+				}
 			},
 			ratesToShow(){
 				return this.rates.map((rate, index) => ({
