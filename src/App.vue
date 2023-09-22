@@ -110,9 +110,9 @@
 </template>
 
 <script>
-	const SelectedCard = () => import('@/components/SelectedCard');
-	const Table = () => import('@/components/Table');
-	const Snackbar = () => import('@/components/Snackbar');
+	const SelectedCard = () => import(/* webpackChunkName: 'selected-card' */'@/components/SelectedCard');
+	const Table = () => import(/* webpackChunkName: 'table' */'@/components/Table');
+	const Snackbar = () => import(/* webpackChunkName: 'snackbar' */'@/components/Snackbar');
 
 	export default {
 		name: 'App',
