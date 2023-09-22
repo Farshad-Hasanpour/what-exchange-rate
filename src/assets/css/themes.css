@@ -13,6 +13,7 @@
     --color-success: #4ab190;
     --color-error: #ef3d59;
     --color-text: #2c3e50;
+    --color-placeholder: #999;
 
     --color-card-back: #FFF;
     --color-line: rgba(0, 0, 0, .1);
@@ -25,6 +26,7 @@
     --color-success: #4ab190;
     --color-error: #ef3d59;
     --color-text: #FFF;
+    --color-placeholder: #999;
 
     --color-card-back: #2F3841;
     --color-line: rgba(255, 255, 255, .1);

@@ -3,51 +3,51 @@
 		<div id="app">
 			<Snackbar/>
 			<header>
-				<a href="/" style="margin-right: auto;">
+				<a href="/" class="website-title">
 					<h1>What Exchange Rate</h1>
 				</a>
-					<Button
-						v-bind="commonHeaderActionProps"
-						class="mx-1"
-						title="Switch Theme"
-						@click="$store.dispatch('switchTheme')"
-					>
-						<Icon name="brightness-4"/>
+				<Button
+					v-bind="commonHeaderActionProps"
+					class="mr-1 ml-auto"
+					title="Switch Theme"
+					@click="$store.dispatch('switchTheme')"
+				>
+					<Icon name="brightness-4"/>
+				</Button>
+				<a
+					href="https://rapidapi.com/Serply/api/exchange-rate9/"
+					target="_blank"
+					rel="noopener"
+					class="mx-1"
+				>
+					<Button v-bind="commonHeaderActionProps" title="API">
+						<Icon name="api"/>
 					</Button>
-					<a
-						href="https://rapidapi.com/Serply/api/exchange-rate9/"
-						target="_blank"
-						rel="noopener"
-						class="mx-1"
-					>
-						<Button v-bind="commonHeaderActionProps" title="API">
-							<Icon name="api"/>
-						</Button>
-					</a>
-					<a
-						href="https://github.com/Farshad-Hasanpour/what-exchange-rate"
-						target="_blank"
-						rel="noopener"
-						class="mx-1"
-					>
-						<Button v-bind="commonHeaderActionProps" title="Source code">
-							<Icon name="github"/>
-						</Button>
-					</a>
-					<!--				<Button-->
-					<!--					class="mx-1"-->
-					<!--					type="fab"-->
-					<!--					dark-->
-					<!--					height="36px"-->
-					<!--					:color="themeColors.primary"-->
-					<!--					title="Change Direction"-->
-					<!--					@click="$store.dispatch('switchDirection')"-->
-					<!--				>-->
-					<!--					<Icon name="translate"/>-->
-					<!--				</Button>-->
+				</a>
+				<a
+					href="https://github.com/Farshad-Hasanpour/what-exchange-rate"
+					target="_blank"
+					rel="noopener"
+					class="mx-1"
+				>
+					<Button v-bind="commonHeaderActionProps" title="Source code">
+						<Icon name="github"/>
+					</Button>
+				</a>
+				<!--				<Button-->
+				<!--					class="mx-1"-->
+				<!--					type="fab"-->
+				<!--					dark-->
+				<!--					height="36px"-->
+				<!--					:color="themeColors.primary"-->
+				<!--					title="Change Direction"-->
+				<!--					@click="$store.dispatch('switchDirection')"-->
+				<!--				>-->
+				<!--					<Icon name="translate"/>-->
+				<!--				</Button>-->
 			</header>
 			<main>
-				<transition-group tag="div" id="selected-rows" name="card-fade">
+				<transition-group v-show="selectedRates.length" tag="div" id="selected-rows" name="card-fade">
 					<SelectedCard
 						v-for="rate in selectedRates"
 						:key="rate.id"
@@ -56,9 +56,9 @@
 						:symbols="symbols"
 					/>
 				</transition-group>
-				<h2 class="mx-1 my-5">
-					Exchange Rates Based on
-					<span v-if="Object.keys(symbols).length" class="base-select-container relative">
+				<h2 class="flex aic flex-wrap mx-1 my-5">
+					<span class="mr-2 mb-2">Exchange Rates Based on</span>
+					<span v-if="Object.keys(symbols).length" class="base-select-container relative mb-2">
 						<select v-model="base" class="base-select-input">
 							<option v-for="({description}, symbol) in symbols" :key="symbol" :value="symbol">
 								{{description}}
@@ -75,14 +75,15 @@
 					:headers="headers"
 					:loading="fetchingRates || fetchingSymbols"
 					:actions="actions"
-					class="flex-grow-1"
+					class="flex-grow-1 mb-16"
 					@searchOnGoogle="searchOnGoogle($event)"
 					@setAsBase="base=$event"
 				/>
 				<footer>
 					<p class="flex aic">
-						<span>Made with</span>
-						<Icon name="heart" color="red" size="18px" class="mx-1 my-0"/>
+						<span class="mr-1">Made</span>
+						<span class="xs-hidden">with</span>
+						<Icon name="heart" color="red" size="18px" class="mx-1 my-0 xs-hidden"/>
 						<span>by <a href="https://www.linkedin.com/in/farshad-hasanpour/" target="_blank" rel="noopener">Farshad Hasanpour</a></span>
 					</p>
 					<p>Foreign exchange rates published by the European Central Bank - might be outdated</p>
@@ -137,7 +138,7 @@
 					row:{title: 'Row', dir: 'ltr'},
 					name:{title: 'Name', dir: 'ltl', searchable: true},
 					id:{title: 'Symbol', dir: 'ltr', searchable: true},
-					value:{title: `Exchange Rate - 1 ${this.base}`, dir: 'ltr'},
+					value:{title: `Exchange Rate`, dir: 'ltr', searchable: true},
 				}
 			},
 			actions(){
@@ -163,16 +164,16 @@
 			return {
 				selected: [],
 				symbols: {
-					// UAE: {description: 'United', id: 'UAE'},
-					// USD: {description: 'united states', id: 'USD'},
-					// EU: {description: 'europe', id: 'EU'},
-					// IRR: { description: 'iranian rials', id: 'IRR'}
+					UAE: {description: 'United', id: 'UAE'},
+					USD: {description: 'united states', id: 'USD'},
+					EU: {description: 'europe', id: 'EU'},
+					IRR: { description: 'iranian rials', id: 'IRR'}
 				},
 				rates: [
-					// {id: 'UAE', value: '10'},
-					// {id: 'EU', value: '2'},
-					// {id: 'IRR', value: '3'},
-					// {id: 'USD', value: '1'}
+					{id: 'UAE', value: '10'},
+					{id: 'EU', value: '2'},
+					{id: 'IRR', value: '3'},
+					{id: 'USD', value: '1'}
 				],
 				base: 'USD',
 				fetchingSymbols: false,
@@ -227,13 +228,65 @@
 	@import "./assets/css/default.css";
 	@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 	@import '../node_modules/@mdi/font/css/materialdesignicons.min.css';
+</style>
 
-	#selected-rows{
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: flex-start;
-		align-items: stretch;
-		margin-right: -10px;
-		margin-left: -10px;
+<style scoped>
+#selected-rows{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-items: stretch;
+	margin-right: -10px;
+	margin-left: -10px;
+	margin-top: 16px;
+	margin-bottom: 48px;
+}
+
+.website-title{
+	display: none;
+}
+
+.base-select-input{
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	outline: none;
+	border: none;
+	background-color: var(--color-card-back);
+	color: white;
+	height: 42px;
+	border-radius: 4px;
+	font-size: 16px;
+	padding-top: 0;
+	padding-bottom: 0;
+	padding-left: 12px;
+	padding-right: 36px;
+	width: 100%;
+}
+.base-select-container{
+	min-width: 100%;
+}
+/* Style for the arrow icon */
+.base-select-container::after {
+	content: '\25BC';
+	position: absolute;
+	top: 50%;
+	right: calc((36px - 14px) / 2);
+	transform: translateY(-50%);
+	font-size: 14px;
+	width: 14px;
+	height: 14px;
+	pointer-events: none; /* Prevents clicking on the arrow */;
+}
+
+@media only screen and (min-width: 600px) {
+	.website-title{
+		display: inline-block;
 	}
+}
+@media only screen and (min-width: 960px) {
+	.base-select-container{
+		min-width: 350px;
+	}
+}
 </style>

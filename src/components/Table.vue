@@ -258,6 +258,9 @@
 		padding-left: 12px;
 		padding-right: 12px;
 	}
+	.query-input::placeholder{
+		color: var(--color-placeholder);
+	}
 
 	/* animation */
 	.table-fade-enter-active, .table-fade-leave-active {

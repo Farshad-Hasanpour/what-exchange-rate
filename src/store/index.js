@@ -10,6 +10,7 @@ const themes = {
 		success: '#4ab190',
 		error: '#ef3d59',
 		text: '#2c3e50',
+		placeholder: '#999',
 
 		cardBack: '#FFF',
 		line: 'rgba(0, 0, 0, .1)'
@@ -20,6 +21,7 @@ const themes = {
 		success: '#4ab190',
 		error: '#ef3d59',
 		text: 'white',
+		placeholder: '#999',
 
 		cardBack: '#2F3841',
 		line: 'rgba(255, 255, 255, .1)'

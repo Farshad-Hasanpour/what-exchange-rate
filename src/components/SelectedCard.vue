@@ -1,7 +1,10 @@
 <template>
-	<div id="selected-card">
-		<h2 id="header"></h2>
-		<p id="description"></p>
+	<div class="selected-card">
+		<Icon name="swap-vertical" size="46px" class="icon flex-shrink-0" color="var(--color-placeholder)"/>
+		<div class="info">
+			<h2 class="header">{{rate.value}} <small class="small">{{symbols[rate.id].description}}</small></h2>
+			<h2 class="header">1 <small class="small">{{symbols[base].description}}</small></h2>
+		</div>
 	</div>
 </template>
 
@@ -17,7 +20,7 @@
 </script>
 
 <style scoped>
-	#selected-card{
+	.selected-card{
 		--items-per-row: 1;
 		--horizontal-margin: 10px;
 
@@ -28,33 +31,47 @@
 		box-shadow: var(--color-line) 0px 2px 8px 0px;
 
 		display: flex;
-		flex-direction: column;
-		justify-content: flex-start;
 		align-items: center;
 		padding: 32px 10px;
 		background-color: var(--color-card-back);
 	}
 
-	#title{ margin: 0; }
-	#description{
-		margin: 0;
+	.info{
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		flex-grow: 1;
+	}
+	.header{
+		font-size: 24px;
+		font-weight: bold;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
+		max-width: 100%;
+	}
+	.small{
 		font-size: 14px;
-		color: darkgray;
+		font-weight: lighter;
+	}
+	.icon{
+		margin-left: 16px;
+		margin-right: 16px;
 	}
 
 	@media only screen and (min-width: 600px) {
-		#selected-card{ --items-per-row: 2; }
+		.selected-card{ --items-per-row: 2; }
 	}
 
 	@media only screen and (min-width: 960px) {
-		#selected-card{ --items-per-row: 3; }
+		.selected-card{ --items-per-row: 3; }
 	}
 
 	@media only screen and (min-width: 1264px) {
-		#selected-card{ --items-per-row: 4; }
+		.selected-card{ --items-per-row: 4; }
 	}
 
 	@media only screen and (min-width: 1904px) {
-		#selected-card{ --items-per-row: 5; }
+		.selected-card{ --items-per-row: 5; }
 	}
 </style>

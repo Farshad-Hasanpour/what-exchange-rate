@@ -84,39 +84,8 @@ main{
 footer{
     display: flex;
     flex-direction: column;
-    padding: 12px 25px;
+    padding: 12px 0;
     margin-top: auto;
-}
-
-/*** Inputs ***/
-.base-select-input{
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    outline: none;
-    border: none;
-    background-color: var(--color-card-back);
-    color: white;
-    height: 36px;
-    border-radius: 4px;
-    font-size: 16px;
-    padding-top: 0;
-    padding-bottom: 0;
-    padding-left: 12px;
-    padding-right: 36px;
-    width: 350px;
-}
-/* Style for the arrow icon */
-.base-select-container::after {
-    content: '\25BC';
-    position: absolute;
-    top: 50%;
-    right: calc((36px - 14px) / 2);
-    transform: translateY(-50%);
-    font-size: 14px;
-    width: 14px;
-    height: 14px;
-    pointer-events: none; /* Prevents clicking on the arrow */
 }
 
 /* custom checkbox */
@@ -172,6 +141,21 @@ input.checkbox-input:checked ~ .checkbox{ background-color: var(--color-primary)
 .m-0{
     margin: 0;
 }
+.mb-2{
+    margin-bottom: 8px;
+}
+.mb-16{
+    margin-bottom: 64px;
+}
+.ml-auto{
+    margin-left: auto;
+}
+.mr-1{
+    margin-right: 4px;
+}
+.mr-2{
+    margin-right: 8px;
+}
 .mx-1{
     margin-left: 4px;
     margin-right: 4px;
@@ -190,5 +174,12 @@ input.checkbox-input:checked ~ .checkbox{ background-color: var(--color-primary)
 }
 .relative{
     position: relative;
+}
+.flex-wrap{
+    flex-wrap: wrap;
+}
+
+@media only screen and (max-width: 399px) {
+    .xs-hidden{ display: none !important; }
 }
 
