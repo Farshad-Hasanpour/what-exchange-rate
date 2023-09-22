@@ -1,26 +1,27 @@
 {
   "name": "what-exchange-rate",
-  "author": "Farshad Hasanpour",
-  "description": "Foreign exchange rates published by the European Central Bank",
-  "license": "MIT",
   "version": "0.1.0",
   "private": true,
+  "description": "Foreign exchange rates published by the European Central Bank",
+  "author": "Farshad Hasanpour",
   "scripts": {
-    "dev": "vue-cli-service serve",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "dev": "vue-cli-service serve"
   },
   "dependencies": {
     "@mdi/font": "^5.9.55",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "register-service-worker": "^1.7.2",
     "vue": "^2.6.11",
     "vuex": "^3.4.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-pwa": "~4.5.0",
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "babel-eslint": "^10.1.0",
@@ -46,5 +47,6 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "license": "MIT"
 }

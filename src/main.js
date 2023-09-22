@@ -4,6 +4,7 @@ import axios from 'axios'
 import store from './store'
 import Icon from '@/components/Icon'
 import Button from '@/components/Button'
+import './registerServiceWorker'
 
 Vue.component('Icon', Icon);
 Vue.component('Button', Button);

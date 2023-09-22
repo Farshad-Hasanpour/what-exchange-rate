@@ -51,8 +51,9 @@
 					<SelectedCard
 						v-for="rate in selectedRates"
 						:key="rate.id"
-						:title="rate.name"
-						:description="rate.value"
+						:rate="rate"
+						:base="base"
+						:symbols="symbols"
 					/>
 				</transition-group>
 				<h2 class="mx-1 my-5">

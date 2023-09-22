@@ -1,7 +1,7 @@
 <template>
 	<div id="selected-card">
-		<h2 id="header">{{title}}</h2>
-		<p id="description">{{description}}</p>
+		<h2 id="header"></h2>
+		<p id="description"></p>
 	</div>
 </template>
 
@@ -9,8 +9,9 @@
 	export default {
 		name: "SelectedCard",
 		props:{
-			title: {required: true, type: String},
-			description: {required: true, type: String}
+			rate: {required: true, type: Object},
+			base: {required: true, type: String},
+			symbols: {required: true, type: Object}
 		}
 	}
 </script>
