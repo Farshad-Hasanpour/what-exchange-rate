@@ -176,6 +176,10 @@ input.checkbox-input:checked ~ .checkbox{ background-color: var(--color-primary)
     margin-left: 4px;
     margin-right: 4px;
 }
+.mx-3{
+     margin-left: 12px;
+     margin-right: 12px;
+ }
 .my-0{
     margin-top: 0;
     margin-bottom: 0;

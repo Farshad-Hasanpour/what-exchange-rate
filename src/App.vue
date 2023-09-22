@@ -55,17 +55,15 @@
 						:description="rate.value"
 					/>
 				</transition-group>
-				<h2 class="mx-1 my-5 relative">
+				<h2 class="mx-1 my-5">
 					Exchange Rates Based on
-					<select v-if="symbols.length" v-model="base" class="base-select-input">
-						<option
-							v-for="({description}, symbol) in symbols"
-							:key="symbol"
-							:value="symbol"
-						>
-							{{description}}
-						</option>
-					</select>
+					<span v-if="Object.keys(symbols).length" class="base-select-container relative">
+						<select v-model="base" class="base-select-input">
+							<option v-for="({description}, symbol) in symbols" :key="symbol" :value="symbol">
+								{{description}}
+							</option>
+						</select>
+					</span>
 					<span v-else>United States Dollar</span>
 				</h2>
 				<Table
@@ -80,16 +78,16 @@
 					@searchOnGoogle="searchOnGoogle($event)"
 					@setAsBase="base=$event"
 				/>
+				<footer>
+					<p class="flex aic">
+						<span>Made with</span>
+						<Icon name="heart" color="red" size="18px" class="mx-1 my-0"/>
+						<span>by <a href="https://www.linkedin.com/in/farshad-hasanpour/" target="_blank" rel="noopener">Farshad Hasanpour</a></span>
+					</p>
+					<p>Foreign exchange rates published by the European Central Bank - might be outdated</p>
+					<p><b>DISCLAIMER:</b> Do not use this website for financial decision making.</p>
+				</footer>
 			</main>
-			<footer>
-				<p class="flex aic">
-					<span>Made with</span>
-					<Icon name="heart" color="red" size="18px" class="mx-1 my-0"/>
-					<span>by <a href="https://www.linkedin.com/in/farshad-hasanpour/" target="_blank" rel="noopener">Farshad Hasanpour</a></span>
-				</p>
-				<p>Foreign exchange rates published by the European Central Bank - might be outdated</p>
-				<p><b>DISCLAIMER:</b> Do not use this website for financial decision making.</p>
-			</footer>
 		</div>
 	</div>
 </template>

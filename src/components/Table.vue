@@ -8,7 +8,7 @@
 						<span class="value" :dir="header.dir">{{item[property]}}</span>
 					</div>
 					<div class="actions" v-if="actions">
-						<label class="checkbox-option">
+						<label class="checkbox-option mx-3">
 							<input
 									:ref="`checkbox-${item.id}`"
 									v-model="selected"
@@ -27,6 +27,7 @@
 								:color="button.color"
 								:title="button.title"
 								:loading="button.loadingProperty ? item[button.loadingProperty] : undefined"
+								class="mx-1"
 								@click="$emit(button.event, item.id)"
 						>
 							<Icon :name="button.icon"/>
@@ -61,7 +62,7 @@
 						<Icon name="loading" size="36px" :color="themeColors.primary" rotate/>
 					</td>
 				</tr>
-				<tr v-if="!queriedItems.length" key="_no-data-row" class="no-date">
+				<tr v-if="!loading && !queriedItems.length" key="_no-data-row" class="no-date">
 					<td :colspan="numberOfColumns">No Data</td>
 				</tr>
 				<tr v-for="item in queriedItems" :key="item.id">
@@ -212,9 +213,6 @@
 	}
 	.item-card .actions{
 		justify-content: flex-end;
-	}
-	.actions > *:not(:last-child){
-		margin-inline-end: 7px;
 	}
 
 	input[type="checkbox"]{
