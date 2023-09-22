@@ -48,6 +48,11 @@
 					<Icon name="loading" size="36px" :color="themeColors.primary" rotate/>
 				</td>
 			</tr>
+			<tr v-show="!loading && !items.length" class="error">
+				<td :colspan="numberOfColumns">
+					No Data
+				</td>
+			</tr>
 			<transition-group v-show="!loading" tag="tbody" name="table-fade">
 				<tr v-for="item in items" :key="item.id">
 					<td v-if="selectable">
@@ -139,7 +144,7 @@
 		text-align: center;
 		padding: 10px 10px;
 	}
-	tr:not(.loading){
+	tr:not(.loading):not(.error){
 		border-bottom: 1px solid var(--color-line);
 	}
 	.actions{
@@ -160,6 +165,10 @@
 	}
 
 	tr.loading td{
+		padding: 16px 0;
+	}
+
+	tr.error td{
 		padding: 16px 0;
 	}
 
