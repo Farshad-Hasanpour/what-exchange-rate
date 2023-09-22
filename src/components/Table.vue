@@ -177,8 +177,8 @@
 				return this.items.filter(item => {
 					for(let i = 0; i < query.length; i++){
 						property = query[i][0];
-						term = query[i][1];
-						if(term && item[property].includes(term)) return true;
+						term = query[i][1].toLowerCase();
+						if(term && item[property].toLowerCase().includes(term)) return true;
 					}
 					return false;
 				})
