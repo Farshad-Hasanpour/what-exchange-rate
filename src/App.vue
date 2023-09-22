@@ -162,16 +162,16 @@
 			return {
 				selected: [],
 				symbols: {
-					UAE: {description: 'United', id: 'UAE'},
-					USD: {description: 'united states', id: 'USD'},
-					EU: {description: 'europe', id: 'EU'},
-					IRR: { description: 'iranian rials', id: 'IRR'}
+					// UAE: {description: 'United', id: 'UAE'},
+					// USD: {description: 'united states', id: 'USD'},
+					// EU: {description: 'europe', id: 'EU'},
+					// IRR: { description: 'iranian rials', id: 'IRR'}
 				},
 				rates: [
-					{id: 'UAE', value: '10'},
-					{id: 'EU', value: '2'},
-					{id: 'IRR', value: '3'},
-					{id: 'USD', value: '1'}
+					// {id: 'UAE', value: '10'},
+					// {id: 'EU', value: '2'},
+					// {id: 'IRR', value: '3'},
+					// {id: 'USD', value: '1'}
 				],
 				base: 'USD',
 				fetchingSymbols: false,
