@@ -15,7 +15,7 @@
 					<Icon name="brightness-4"/>
 				</Button>
 				<a
-					href="https://rapidapi.com/Serply/api/exchange-rate9/"
+					href="https://apilayer.com/marketplace/exchangerates_data-api"
 					target="_blank"
 					rel="noopener"
 					class="mx-1"
