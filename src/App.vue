@@ -145,17 +145,17 @@
 				return {
 					searchOnGoogle:{
 						icon: 'google',
-							title: 'Search on Google',
-							event: 'searchOnGoogle',
-							color: this.$store.getters.themeColors.primary,
-							loadingProperty: null,
+						title: 'Search on Google',
+						event: 'searchOnGoogle',
+						color: this.$store.getters.themeColors.primary,
+						loadingProperty: null,
 					},
 					setAsBase: {
 						icon: 'currency-usd',
-							title: 'Set as base currency',
-							event: 'setAsBase',
-							color: this.$store.getters.themeColors.primary,
-							loadingProperty: null,
+						title: 'Set as base currency',
+						event: 'setAsBase',
+						color: this.$store.getters.themeColors.primary,
+						loadingProperty: null,
 					}
 				}
 			}
@@ -225,7 +225,6 @@
 	@import "./assets/css/themes.css";
 	@import "./assets/css/default.css";
 	@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
-	@import '../node_modules/@mdi/font/css/materialdesignicons.min.css';
 </style>
 
 <style scoped>
