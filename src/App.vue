@@ -60,7 +60,7 @@
 					<span class="mr-2 mb-2">Exchange Rates Based on</span>
 					<span v-if="Object.keys(symbols).length" class="base-select-container relative mb-2">
 						<select v-model="base" class="base-select-input">
-							<option v-for="({description}, symbol) in symbols" :key="symbol" :value="symbol">
+							<option v-for="(description, symbol) in symbols" :key="symbol" :value="symbol">
 								{{description}}
 							</option>
 						</select>
@@ -129,7 +129,7 @@
 			ratesToShow(){
 				return this.rates.map((rate, index) => ({
 					row: index + 1,
-					name: this.symbols[rate.id]?.description || 'Loading...',
+					name: this.symbols[rate.id] || 'Loading...',
 					...rate
 				}));
 			},
@@ -164,9 +164,9 @@
 			return {
 				selected: [],
 				symbols: {
-					// UAE: {description: 'United', id: 'UAE'},
-					// USD: {description: 'united states', id: 'USD'},
-					// EU: {description: 'europe', id: 'EU'},
+					// UAE: 'United',
+					// USD: 'united states',
+					// EU: 'europe',
 				},
 				rates: [
 					// {id: 'UAE', value: '10'},
@@ -197,7 +197,7 @@
 						base: this.base,
 					}
 				}).then(res => {
-					if(!res.data.rates || res.data.rates.length) return;
+					if(!res.data.rates) return;
 					this.rates = Object.entries(res.data.rates).map(([code, value]) => {
 						let formatted = value.toLocaleString('en', {style: "currency", currency: code, maximumSignificantDigits: 7});
 						if(formatted.startsWith(code)) formatted = formatted.replace(code, '').trim();

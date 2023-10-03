@@ -2,8 +2,8 @@
 	<div class="selected-card">
 		<Icon name="swap-vertical" size="46px" class="icon flex-shrink-0" color="var(--color-placeholder)"/>
 		<div class="info">
-			<h2 class="header">{{rate.value}} <small class="small">{{symbols[rate.id].description}}</small></h2>
-			<h2 class="header">1 <small class="small">{{symbols[base].description}}</small></h2>
+			<h2 class="header">{{rate.value}} <small class="small">{{symbols[rate.id]}}</small></h2>
+			<h2 class="header">1 <small class="small">{{symbols[base]}}</small></h2>
 		</div>
 	</div>
 </template>

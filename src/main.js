@@ -11,10 +11,8 @@ Vue.component('Button', Button);
 
 Vue.config.productionTip = false;
 
-axios.defaults.baseURL = 'https://exchange-rate9.p.rapidapi.com';
-//TODO: change authorization method
-axios.defaults.headers['X-RapidAPI-Key'] = process.env.VUE_APP_X_RAPIDAPI_KEY;
-axios.defaults.headers['X-RapidAPI-Host'] = 'exchange-rate9.p.rapidapi.com';
+axios.defaults.baseURL = 'https://api.apilayer.com/exchangerates_data';
+axios.defaults.headers['apikey'] = process.env.VUE_APP_API_KEY;
 
 Vue.prototype.$http = axios;
 
