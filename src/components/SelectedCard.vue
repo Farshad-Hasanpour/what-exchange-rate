@@ -34,6 +34,7 @@
 		align-items: center;
 		padding: 32px 10px;
 		background-color: var(--color-card-back);
+		overflow: hidden;
 	}
 
 	.info{
@@ -41,6 +42,7 @@
 		flex-direction: column;
 		height: 100%;
 		flex-grow: 1;
+		overflow: hidden;
 	}
 	.header{
 		font-size: 24px;

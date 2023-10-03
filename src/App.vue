@@ -251,7 +251,7 @@
 	outline: none;
 	border: none;
 	background-color: var(--color-card-back);
-	color: white;
+	color: var(--color-text);
 	height: 42px;
 	border-radius: 4px;
 	font-size: 16px;
