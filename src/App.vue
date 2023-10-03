@@ -182,7 +182,7 @@
 			fetchSymbols(){
 				this.fetchingSymbols = true;
 				this.$http.get('/symbols').then(res => {
-					this.symbols = res.data.symbols;
+					this.symbols = res.data.symbols || {};
 				}).catch(() => {
 					const message = "We're sorry. There was an error in fetching symbols";
 					this.$store.dispatch('showMessage', {messageType: 'error', message});
@@ -197,6 +197,7 @@
 						base: this.base,
 					}
 				}).then(res => {
+					if(!res.data.rates || res.data.rates.length) return;
 					this.rates = Object.entries(res.data.rates).map(([code, value]) => {
 						let formatted = value.toLocaleString('en', {style: "currency", currency: code, maximumSignificantDigits: 7});
 						if(formatted.startsWith(code)) formatted = formatted.replace(code, '').trim();
