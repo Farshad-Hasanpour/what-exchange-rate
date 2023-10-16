@@ -4,6 +4,19 @@
   "private": true,
   "description": "Foreign exchange rates published by the European Central Bank",
   "author": "Farshad Hasanpour",
+  "homepage": "https://whatexchangerate.ir",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Farshad-Hasanpour/what-exchange-rate.git"
+  },
+  "keywords": [
+    "Vue",
+    "PWA",
+    "Webpack",
+    "Currency",
+    "Economy",
+    "Exchange Rate"
+  ],
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
